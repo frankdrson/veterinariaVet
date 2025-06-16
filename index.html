@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VetShop - Tu tienda veterinaria de confianza 🐕🐕🐶🐕‍🦺🐈🐈‍⬛</title>
+  <script src="//code.tidio.co/mgzuazj0laishj3kbcdqsi7sogluqd61.js" async></script>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    header, footer { background: #4CAF50; color: white; padding: 15px; text-align: center; }
+    nav { background: #388E3C; display: flex; justify-content: center; gap: 30px; padding: 10px; }
+    nav a { color: white; text-decoration: none; font-weight: bold; }
+    .hero { background: #e8f5e9; padding: 40px; text-align: center; }
+    .hero h1 { margin: 0; color: #2e7d32; }
+    .section { padding: 40px 20px; text-align: center; }
+    .productos, .servicios { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+    .card {
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 250px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .card h3 { margin: 10px 0; }
+    .card button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .card button:hover {
+      background-color: #45a049;
+    }
+    #chatbot-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #4CAF50;
+      color: white;
+      font-size: 24px;
+      padding: 10px 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 999;
+    }
+    #chat-container {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      z-index: 999;
+    }
+    #chat-header {
+      background: #4CAF50;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+    }
+    #chat-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      font-size: 14px;
+    }
+    #chat-input {
+      border: none;
+      border-top: 1px solid #ccc;
+      padding: 10px;
+      width: calc(100% - 22px);
+      font-size: 14px;
+    }
+    #chat-container button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+    }
+    footer { font-size: 14px; }
+    #cart-status {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #388E3C;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>VetShop</h1>
+  <p>Tu tienda veterinaria de confianza</p>
+</header>
+
+<nav>
+  <a href="#productos">Productos</a>
+  <a href="#servicios">Servicios</a>
+  <a href="#contacto">Contacto</a>
+</nav>
+
+<div id="cart-status">🛒 Carrito: <span id="cart-count">0</span> producto(s)</div>
+
+<section class="hero">
+  <h1>❤️ Cuidamos a tus mascotas como si fueran nuestras</h1>
+  <p>Productos de calidad para el bienestar de tus compañeros peludos</p>
+</section>
+
+<section class="section" id="productos">
+  <h2>Nuestros Productos</h2>
+  <div class="productos">
+    <div class="card">
+      <img src="https://oechsle.vteximg.com.br/arquivos/ids/1210986/image-715bb9c641a84b3483d1b6fe7a20f9ec.jpg?v=637494291737630000" alt="Alimento para perros">
+      <h3>Alimento para perros</h3>
+      <p>Nutrición completa para perros adultos.</p>
+      <strong>S/ 45.00</strong><br>
+      <button onclick="agregarAlCarrito('Alimento para perros', 45.00)">Agregar al carrito</button>
+    </div>
+    <div class="card">
+      <img src="https://promart.vteximg.com.br/arquivos/ids/6842963-1000-1000/image-9d182f7045224c49b5f1f4cce1d82aec.jpg?v=638145010073870000" alt="Juguete mordedor">
+      <h3>Juguete mordedor</h3>
+      <p>Para perros pequeños y medianos.</p>
+      <strong>S/ 20.00</strong><br>
+      <button onclick="agregarAlCarrito('Juguete mordedor', 20.00)">Agregar al carrito</button>
+    </div>
+    <div class="card">
+      <img src="https://gopet.vtexassets.com/arquivos/ids/156402/20200331_1.jpg?v=637624771590030000" alt="Champú especial">
+      <h3>Champú especial</h3>
+      <p>Para piel sensible de mascotas.</p>
+      <strong>S/ 30.00</strong><br>
+      <button onclick="agregarAlCarrito('Champú especial', 30.00)">Agregar al carrito</button>
+    </div>
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOIoHt9zQcjmexJu0ZHbPdKZJgrPcGjoGeKg&s" alt="Alimento para perros">
+      <h3>Rintisa - Productos para gatos</h3>
+      <p>Nutrición completa para los gatos.</p>
+      <strong>S/ 45.00</strong><br>
+      <button onclick="agregarAlCarrito('Rintisa - Productos para gatos', 45.00)">Agregar al carrito</button>
+    </div>
+    <div class="card">
+      <img src="https://felinus.cl/197-large_default/bioline-limpieza-almohadillas-para-gatos.jpg" alt="Juguete mordedor">
+      <h3>Bioline Limpieza </h3>
+      <p>Bioline Limpieza Almohadillas para Gato.</p>
+      <strong>S/ 30.00</strong><br>
+      <button onclick="agregarAlCarrito('Bioline Limpieza ', 30.00)">Agregar al carrito</button>
+    </div>
+    <div class="card">
+      <img src="https://cnnespanol.cnn.com/wp-content/uploads/2021/08/limpiador-patitas-perro-gato.png" alt="Champú especial">
+      <h3>Limpiador de patitas</h3>
+      <p>Limpiador de patitas para perro y gato.</p>
+      <strong>S/ 26.00</strong><br>
+      <button onclick="agregarAlCarrito('Limpiador de patitas', 26.00)">Agregar al carrito</button>
+    </div>
+    <div class="card">
+      <img src="https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/cd9a10c107ff800cdff5f6bb4c56309d.jpg?imageMogr2/auto-orient%7CimageView2/2/w/800/q/70/format/webp" alt="Champú especial">
+      <h3>juegute Pez arrugado</h3>
+      <p>Juguete para Gatos * de Pez Arrugado - Lino * Resistente a * para Juego Interactivo, Juguete.</p>
+      <strong>S/ 26.00</strong><br>
+      <button onclick="agregarAlCarrito('juegute Pez arrugado especial', 26.00)">Agregar al carrito</button>
+    </div>
+    <div class="card">
+      <img src="https://wongfood.vtexassets.com/arquivos/ids/516950/JUGUETE-PARA-GATOS-CATNIP-RATON-1-254617937.jpg?v=637789953707370000" alt="Champú especial">
+      <h3>Juguetes catnip raton</h3>
+      <p>Juguete para Gatos Pet Care Catnip Ratón.</p>
+      <strong>S/8.00</strong><br>
+      <button onclick="agregarAlCarrito('Juguetes catnip raton', 8.00)">Agregar al carrito</button>
+    </div>
+    <div class="card">
+      <img src="https://labovet.com.br/wp-content/uploads/2019/03/Vacina-Antirabica-Pet-1-768x542.png" alt="Champú especial">
+      <h3>Vacuna Antirrábica</h3>
+      <p>Vacuna Antirrábica Inactivada Para Perros Y Gatos | Labovet Productos Veterinarios.</p>
+      <strong>S/ 86.00</strong><br>
+      <button onclick="agregarAlCarrito('Vacuna Antirrábica ', 86.00)">Agregar al carrito</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="servicios">
+  <h2>Nuestros Servicios Veterinarios</h2>
+  <div class="servicios">
+    <div class="card">
+      <h3>💉 Consultas Veterinarias</h3>
+      <p>Chequeos completos y diagnósticos profesionales.</p>
+    </div>
+    <div class="card">
+      <h3>💇 Peluquería Canina</h3>
+      <p>Servicios de grooming y embellecimiento.</p>
+    </div>
+    <div class="card">
+      <h3>📈 Vacunación</h3>
+      <p>Programas completos de inmunización.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="contacto">
+  <p>VetShop Juan Papets - Todos los derechos reservados &copy; 2025</p>
+  <p>Contacto: Av. Principal 123, Piura| +51 999 888 777 | info@juanpapets.com</p>
+</footer>
+
+<div onclick="mostrarCarrito()" style="position: fixed; bottom: 80px; right: 20px; background: #388E3C; color: white; padding: 12px 16px; border-radius: 5px; cursor: pointer; z-index:9999;">
+  Ver Carrito
+</div>
+
+<div id="carrito-panel" style="display:none; position: fixed; top: 0; right: 0; width: 320px; background: #fff; box-shadow: -2px 0 10px rgba(0,0,0,0.2); height: 100%; z-index: 9999; padding: 20px; font-family: Arial;">
+  <h3 style="margin-top: 0;">🛒 Carrito de Compras <span onclick="cerrarCarrito()" style="float:right; cursor:pointer;">✖</span></h3>
+  <div id="carrito-items"></div>
+  <p>Subtotal: S/ <span id="subtotal">0.00</span></p>
+  <p>Envío: <strong style="color:green;">Gratis</strong></p>
+  <h3>Total: <span style="color:green;">S/ <span id="total">0.00</span></span></h3>
+  <button onclick="procederPago()" style="background: #4CAF50; color:white; border:none; padding:10px; width:100%; margin-bottom:10px;">💳 Proceder al Pago</button>
+  <button onclick="vaciarCarrito()" style="background: #ccc; border:none; padding:10px; width:100%;">🗑️ Vaciar Carrito</button>
+</div>
+
+
+
+<!-- Formulario de pago -->
+<div id="formulario-pago" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; border: 1px solid #ccc; border-radius: 10px; padding: 20px; z-index: 10000; box-shadow: 0 0 10px rgba(0,0,0,0.3); width: 300px;">
+  <h3>💳 Datos de Pago</h3>
+  <label>Número de Tarjeta:</label><br>
+  <input type="text" placeholder="1234 5678 9012 3456" style="width:100%; padding:8px; margin-bottom:10px;"><br>
+  <label>Nombre en la tarjeta:</label><br>
+  <input type="text" placeholder="Juan Pérez" style="width:100%; padding:8px; margin-bottom:10px;"><br>
+  <label>Fecha de Expiración:</label><br>
+  <input type="text" placeholder="MM/AA" style="width:100%; padding:8px; margin-bottom:10px;"><br>
+  <label>CVV:</label><br>
+  <input type="text" placeholder="123" style="width:100%; padding:8px; margin-bottom:10px;"><br>
+  <button onclick="confirmarPago()" style="background: #4CAF50; color:white; border:none; padding:10px; width:100%; margin-bottom:10px;">Pagar</button>
+  <button onclick="cerrarFormularioPago()" style="background: #ccc; border:none; padding:10px; width:100%;">Cancelar</button>
+</div>
+<div id="chat" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;"></div>
+<input type="text" id="mensaje" placeholder="Escribe tu mensaje aquí" />
+<button onclick="enviarMensaje()">Enviar</button>
+
+<script src="chat.js"></script>
+
+<script>
+  let carrito = [];
+
+  function agregarAlCarrito(nombre, precio) {
+    const index = carrito.findIndex(p => p.nombre === nombre);
+    if (index > -1) {
+      carrito[index].cantidad++;
+    } else {
+      carrito.push({ nombre, precio, cantidad: 1 });
+    }
+    actualizarCarrito();
+    document.getElementById('cart-count').textContent = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+  }
+
+  function actualizarCarrito() {
+    const container = document.getElementById('carrito-items');
+    container.innerHTML = '';
+    let subtotal = 0;
+
+    carrito.forEach((item, i) => {
+      subtotal += item.precio * item.cantidad;
+      container.innerHTML += `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <div>
+            <strong>${item.nombre}</strong><br>
+            S/ ${item.precio.toFixed(2)}
+          </div>
+          <div>
+            <button onclick="cambiarCantidad(${i}, -1)">−</button>
+            <span>${item.cantidad}</span>
+            <button onclick="cambiarCantidad(${i}, 1)">+</button>
+            <button onclick="eliminarItem(${i})" style="color:red;">🗑️</button>
+          </div>
+        </div>`;
+    });
+
+    document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+    document.getElementById('total').textContent = subtotal.toFixed(2);
+  }
+
+  function cambiarCantidad(index, delta) {
+    carrito[index].cantidad += delta;
+    if (carrito[index].cantidad <= 0) carrito.splice(index, 1);
+    actualizarCarrito();
+    document.getElementById('cart-count').textContent = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+  }
+
+  function eliminarItem(index) {
+    carrito.splice(index, 1);
+    actualizarCarrito();
+    document.getElementById('cart-count').textContent = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+  }
+
+  function vaciarCarrito() {
+    carrito = [];
+    actualizarCarrito();
+    document.getElementById('cart-count').textContent = 0;
+  }
+
+  function mostrarCarrito() {
+    document.getElementById('carrito-panel').style.display = 'block';
+  }
+
+  function cerrarCarrito() {
+    document.getElementById('carrito-panel').style.display = 'none';
+  }
+
+  function procederPago() {
+    if (carrito.length === 0) {
+      alert("Tu carrito está vacío.");
+      return;
+    }
+    cerrarCarrito();
+    document.getElementById('formulario-pago').style.display = 'block';
+  }
+
+  function cerrarFormularioPago() {
+    document.getElementById('formulario-pago').style.display = 'none';
+  }
+
+  function confirmarPago() {
+    alert("✅ ¡Pago realizado con éxito! Gracias por tu compra.");
+    cerrarFormularioPago();
+    vaciarCarrito();
+  }
+
+  function toggleChat() {
+    const chat = document.getElementById('chat-container');
+    chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
+  }
+
+  function enviarMensaje() {
+    const input = document.getElementById('chat-input');
+    const mensaje = input.value;
+    const chat = document.getElementById('chat-messages');
+
+    if (!mensaje.trim()) return;
+
+    chat.innerHTML += `<div><b>Tú:</b> ${mensaje}</div>`;
+
+    let respuesta = "Gracias por contactarnos. ¿En qué podemos ayudarte?";
+    if (mensaje.toLowerCase().includes("horario")) {
+      respuesta = "Nuestro horario es de 8:00 a.m. a 8:00 p.m., todos los días.";
+    }
+
+    setTimeout(() => {
+      chat.innerHTML += `<div><b>VetBot:</b> ${respuesta}</div>`;
+      chat.scrollTop = chat.scrollHeight;
+    }, 500);
+
+    input.value = '';
+  }
+</script>
+<script>
+  const apiKey ="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"; // 👈 Reemplaza esto con tu clave real
+
+  async function enviarMensaje() {
+    const input = document.getElementById('chat-input');
+    const mensaje = input.value;
+    const chat = document.getElementById('chat-messages');
+
+    if (!mensaje.trim()) return;
+
+    chat.innerHTML += `<div><b>Tú:</b> ${mensaje}</div>`;
+    input.value = '';
+    chat.scrollTop = chat.scrollHeight;
+
+    const respuesta = await obtenerRespuestaIA(mensaje);
+    chat.innerHTML += `<div><b>VetBot:</b> ${respuesta}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  async function obtenerRespuestaIA(mensajeUsuario) {
+    try {
+      const respuesta = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [{ role: "user", content: mensajeUsuario }],
+          temperature: 0.7
+        })
+      });
+
+      const datos = await respuesta.json();
+      const respuestaIA = data.choices[0].message.content;
+    } catch (error) {
+      console.error("Error al obtener respuesta:", error);
+      return "Lo siento, hubo un error al conectarme. Inténtalo más tarde.";
+    }
+  }
+</script>
+
+</body>
+</html>
